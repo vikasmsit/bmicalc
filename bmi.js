@@ -7,7 +7,7 @@
       this.state = {
           height: "",
           weight: "",
-          result: "Empty"
+          BMI: "Empty"
           
       };
   }
@@ -21,9 +21,9 @@
         <h3>Height (in m) </h3>
         <input type="text" placeholder="Enter Value" aria-label="Username" aria-describedby="basic-addon1" onChange={this.updateHeight} value={this.state.height}></input>
         <div>
-        <button type="button" class="btn btn-primary" onClick={this.updateResult}>Calculate</button>
+        <button type="button" class="btn btn-primary" onClick={this.updateResult}>Calculate BMI</button>
         </div>
-        <Result res={this.state.result}/>
+        <Result res={this.state.BMI}/>
         
 
         
@@ -41,8 +41,25 @@
       
     updateResult = (event) => {
 
+      var res=parseFloat(this.state.weight)/ (parseFloat(this.state.height)**2)
+      res=res.toFixed(2)
+
+      if(res>25){
+
+        res=res+" (Obese)"
+      }
+
+      else if(res>20 && res<=25){
+
+        res=res+ " (Healthy)"
+      }
+
+      else {
+
+        res=res+ " (Under-weight)"
+      }
        
-      this.setState({ result: parseFloat(this.state.weight)/ (parseFloat(this.state.height)**2) });
+      this.setState({ BMI: res });
       }
   }
 
